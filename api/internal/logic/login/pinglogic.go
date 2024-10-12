@@ -10,27 +10,45 @@ import (
 	"github.com/MrLeeang/my-zero/loginsvc/loginsvc"
 )
 
-type PingLogic struct {
+type LoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
-	return &PingLogic{
+func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic {
+	return &LoginLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *PingLogic) Ping() (resp *types.Resp, err error) {
+func (l *LoginLogic) Ping() (resp *types.Resp, err error) {
 	if _, err = l.svcCtx.LoginSvc.Ping(l.ctx, new(loginsvc.Request)); err != nil {
 		return
 	}
 
 	resp = new(types.Resp)
 	resp.Msg = "pong"
+
+	return
+}
+
+func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
+
+	var loginResp *loginsvc.LoginResp
+
+	if loginResp, err = l.svcCtx.LoginSvc.Login(l.ctx, &loginsvc.LoginReq{
+		Username: req.Username,
+		Password: req.Password,
+	}); err != nil {
+		return
+	}
+
+	resp = new(types.LoginResp)
+	resp.Msg = types.ErrorCodeMessage[types.Ok]
+	resp.Data = loginResp
 
 	return
 }

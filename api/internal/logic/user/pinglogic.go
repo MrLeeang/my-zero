@@ -31,6 +31,7 @@ func (l *PingLogic) Ping() (resp *types.Resp, err error) {
 
 	resp = new(types.Resp)
 	resp.Msg = "pong"
+	resp.Code = types.Ok
 
 	return
 }

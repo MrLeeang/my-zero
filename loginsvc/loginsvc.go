@@ -18,7 +18,7 @@ import (
 
 var configFile = flag.String("f", "etc/loginsvc.yaml", "the config file")
 
-func main() {
+func StartServer() {
 	flag.Parse()
 
 	var c config.Config
@@ -36,4 +36,8 @@ func main() {
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
+}
+
+func main() {
+	StartServer()
 }

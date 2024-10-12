@@ -15,7 +15,7 @@ import (
 
 var configFile = flag.String("f", "etc/config.yaml", "the config file")
 
-func main() {
+func StartServer() {
 	flag.Parse()
 
 	var c config.Config
@@ -26,8 +26,22 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 	login.RegisterHandlers(server, ctx)
-	user.RegisterHandlers(server, ctx)
+
+	// 路由注册
+	var routers = []rest.Route{}
+
+	routers = append(routers, user.RegisterHandlers(server, ctx)...)
+
+	server.AddRoutes(
+		routers,
+		rest.WithPrefix("/api"),
+		rest.WithJwt("abc123abc123abc123"),
+	)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
+}
+
+func main() {
+	StartServer()
 }
