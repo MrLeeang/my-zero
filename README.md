@@ -44,3 +44,13 @@ internal -- 内部文件
     svc -- 上下文，调用的rpc服务，需要在这里定义好
     types  -- http接口接收、返回参数定义
 ```
+
+# 认证成功后token中的uid怎么获取？？？？
+# 权限认证
+```
+server.AddRoutes(
+		routers,
+		rest.WithPrefix("/api"),
+		rest.WithJwt(ctx.Config.JwtAuth.AccessSecret),
+	)
+```
