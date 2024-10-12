@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"github.com/MrLeeang/my-zero/rpc/internal/svc"
-	"github.com/MrLeeang/my-zero/rpc/pb"
+	"github.com/MrLeeang/my-zero/usersvc/internal/svc"
+	"github.com/MrLeeang/my-zero/usersvc/usersvc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,8 +23,8 @@ func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
 	}
 }
 
-func (l *PingLogic) Ping(in *pb.Placeholder) (*pb.Placeholder, error) {
+func (l *PingLogic) Ping(in *usersvc.Request) (*usersvc.Response, error) {
 	// todo: add your logic here and delete this line
 
-	return &pb.Placeholder{}, nil
+	return &usersvc.Response{}, nil
 }

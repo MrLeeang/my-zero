@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/MrLeeang/my-zero/rpc/internal/config"
-	"github.com/MrLeeang/my-zero/rpc/internal/server"
-	"github.com/MrLeeang/my-zero/rpc/internal/svc"
-	"github.com/MrLeeang/my-zero/rpc/pb"
+	"github.com/MrLeeang/my-zero/loginsvc/internal/config"
+	"github.com/MrLeeang/my-zero/loginsvc/internal/server"
+	"github.com/MrLeeang/my-zero/loginsvc/internal/svc"
+	"github.com/MrLeeang/my-zero/loginsvc/loginsvc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/config.yaml", "the config file")
+var configFile = flag.String("f", "etc/loginsvc.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -26,7 +26,7 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		pb.RegisterGreetServer(grpcServer, server.NewGreetServer(ctx))
+		loginsvc.RegisterLoginsvcServer(grpcServer, server.NewLoginsvcServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)

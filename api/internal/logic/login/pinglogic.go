@@ -1,4 +1,4 @@
-package logic
+package login
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 
 	"github.com/MrLeeang/my-zero/api/internal/svc"
 	"github.com/MrLeeang/my-zero/api/internal/types"
-	"github.com/MrLeeang/my-zero/rpc/greet"
+	"github.com/MrLeeang/my-zero/loginsvc/loginsvc"
 )
 
 type PingLogic struct {
@@ -25,7 +25,7 @@ func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
 }
 
 func (l *PingLogic) Ping() (resp *types.Resp, err error) {
-	if _, err = l.svcCtx.GreetRpc.Ping(l.ctx, new(greet.Placeholder)); err != nil {
+	if _, err = l.svcCtx.LoginSvc.Ping(l.ctx, new(loginsvc.Request)); err != nil {
 		return
 	}
 

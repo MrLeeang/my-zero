@@ -1,0 +1,6 @@
+Name: usersvc.rpc
+ListenOn: 0.0.0.0:8081
+Etcd:
+  Hosts:
+  - 192.168.2.235:2379
+  Key: usersvc.rpc

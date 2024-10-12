@@ -2,4 +2,14 @@ Name: ping
 Host: 127.0.0.1
 Port: 8888
 Log:
-  Encoding: plain
+  Encoding: json
+LoginSvc:
+  Etcd:
+    Hosts:
+    - 192.168.2.235:2379
+    Key: loginsvc.rpc
+UserSvc:
+  Etcd:
+    Hosts:
+    - 192.168.2.235:2379
+    Key: usersvc.rpc

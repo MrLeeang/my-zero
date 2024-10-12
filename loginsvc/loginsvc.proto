@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package loginsvc;
+option go_package="./loginsvc";
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+service Loginsvc {
+  rpc Ping(Request) returns(Response);
+  rpc Login(LoginReq) returns (LoginResp);
+}
+
+
+// 登录参数结构体
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+message LoginResp {
+  string useruuid=1;
+  string token=2;
+}

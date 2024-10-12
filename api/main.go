@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"github.com/MrLeeang/my-zero/api/internal/config"
-	"github.com/MrLeeang/my-zero/api/internal/handler"
+	"github.com/MrLeeang/my-zero/api/internal/handler/login"
+	"github.com/MrLeeang/my-zero/api/internal/handler/user"
 	"github.com/MrLeeang/my-zero/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -24,7 +25,8 @@ func main() {
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
-	handler.RegisterHandlers(server, ctx)
+	login.RegisterHandlers(server, ctx)
+	user.RegisterHandlers(server, ctx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
