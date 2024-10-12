@@ -21,8 +21,10 @@ service Loginsvc {
 message LoginReq {
   string username = 1;
   string password = 2;
+  string accessSecret = 3;
+  int64 accessExpire = 4;
 }
 message LoginResp {
-  string useruuid=1;
+  string userUuid=1;
   string token=2;
 }

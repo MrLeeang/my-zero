@@ -32,10 +32,11 @@ func StartServer() {
 
 	routers = append(routers, user.RegisterHandlers(server, ctx)...)
 
+	// server.Use()
 	server.AddRoutes(
 		routers,
 		rest.WithPrefix("/api"),
-		rest.WithJwt("abc123abc123abc123"),
+		rest.WithJwt(ctx.Config.JwtAuth.AccessSecret),
 	)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)

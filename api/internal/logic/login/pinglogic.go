@@ -40,15 +40,18 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	var loginResp *loginsvc.LoginResp
 
 	if loginResp, err = l.svcCtx.LoginSvc.Login(l.ctx, &loginsvc.LoginReq{
-		Username: req.Username,
-		Password: req.Password,
+		Username:     req.Username,
+		Password:     req.Password,
+		AccessSecret: l.svcCtx.Config.JwtAuth.AccessSecret,
+		AccessExpire: l.svcCtx.Config.JwtAuth.AccessExpire,
 	}); err != nil {
 		return
 	}
 
 	resp = new(types.LoginResp)
 	resp.Msg = types.ErrorCodeMessage[types.Ok]
-	resp.Data = loginResp
+	resp.Data.Token = loginResp.Token
+	resp.Data.UserUuid = loginResp.UserUuid
 
 	return
 }

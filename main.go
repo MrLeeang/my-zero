@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -161,8 +162,19 @@ func startUser() {
 }
 
 func main() {
+
+	s := flag.String("s", "http", "启动服务rpc,http,default(:http)")
+
+	flag.Parse()
+
 	go startLogin()
 	go startLogin1()
 	go startUser()
-	startApi()
+
+	if *s != "rpc" {
+		startApi()
+	} else {
+		select {}
+	}
+
 }

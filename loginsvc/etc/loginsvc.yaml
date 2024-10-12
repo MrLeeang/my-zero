@@ -1,5 +1,11 @@
 Name: loginsvc.rpc
 ListenOn: 0.0.0.0:8080
+#链路追踪
+Telemetry:
+  Name: user-api
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
 Etcd:
   Hosts:
   - 192.168.2.235:2379

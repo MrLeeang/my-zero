@@ -3,6 +3,7 @@ module github.com/MrLeeang/my-zero
 go 1.23.2
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/zeromicro/go-zero v1.7.2
 	google.golang.org/grpc v1.67.1
 	google.golang.org/protobuf v1.35.1

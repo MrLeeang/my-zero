@@ -7,5 +7,8 @@ type LoginReq struct {
 
 type LoginResp struct {
 	Resp
-	Data any `json:"data"`
+	Data struct {
+		Token    string `json:"token"`
+		UserUuid string `json:"user_uuid"`
+	} `json:"data"`
 }
