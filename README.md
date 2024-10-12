@@ -7,3 +7,7 @@ goctl quickstart -t micro
 ```
 goctl rpc new logginsvc
 ```
+
+
+## 链路追踪
+### go-zero默认是开启的，但是需要配置etcd或者consul才可以生效
