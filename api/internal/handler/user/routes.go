@@ -11,7 +11,7 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) []rest.Route {
+func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext, prefix string) []rest.Route {
 
 	// 单独添加，不需要权限
 	server.AddRoute(
@@ -20,14 +20,14 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) []rest
 			Path:    "/user/ping",
 			Handler: pingHandler(serverCtx),
 		},
-		rest.WithPrefix("/api"),
+		rest.WithPrefix(prefix),
 	)
 
 	return []rest.Route{
 		{
 			Method:  http.MethodPost,
 			Path:    "/user",
-			Handler: pingHandler(serverCtx),
+			Handler: userHandler(serverCtx),
 		},
 	}
 }

@@ -1,5 +1,5 @@
 Name: usersvc.rpc
-ListenOn: 0.0.0.0:8081
+ListenOn: 0.0.0.0:8086
 #链路追踪
 Telemetry:
   Name: user-api

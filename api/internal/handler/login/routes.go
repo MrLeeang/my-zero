@@ -11,7 +11,7 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext, prefix string) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
@@ -25,6 +25,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: loginHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/api"),
+		rest.WithPrefix(prefix),
 	)
 }

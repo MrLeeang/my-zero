@@ -13,4 +13,15 @@ message Response {
 
 service Usersvc {
   rpc Ping(Request) returns(Response);
+  rpc CreateUser(CreateUserReq) returns(CreateUserResp);
+}
+
+// 登录参数结构体
+message CreateUserReq {
+  string username = 1;
+  string password = 2;
+}
+message CreateUserResp {
+  string userUuid = 1;
+  string username = 2;
 }

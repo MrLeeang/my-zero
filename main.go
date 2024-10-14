@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"time"
 )
 
 func startApi() {
@@ -49,7 +50,7 @@ func startApi() {
 
 func startLogin() {
 
-	cmd := exec.Command("go", "run", "loginsvc/loginsvc.go", "-f", "loginsvc/etc/loginsvc.yaml")
+	cmd := exec.Command("go", "run", "loginsvc/main.go", "-f", "loginsvc/etc/loginsvc.yaml")
 
 	// 获取标准输出和标准错误
 	stdout, err := cmd.StdoutPipe()
@@ -87,7 +88,7 @@ func startLogin() {
 
 func startLogin1() {
 
-	cmd := exec.Command("go", "run", "loginsvc/loginsvc.go", "-f", "loginsvc/etc/loginsvc1.yaml")
+	cmd := exec.Command("go", "run", "loginsvc/main.go", "-f", "loginsvc/etc/loginsvc1.yaml")
 
 	// 获取标准输出和标准错误
 	stdout, err := cmd.StdoutPipe()
@@ -125,7 +126,7 @@ func startLogin1() {
 
 func startUser() {
 
-	cmd := exec.Command("go", "run", "usersvc/usersvc.go", "-f", "usersvc/etc/usersvc.yaml")
+	cmd := exec.Command("go", "run", "usersvc/main.go", "-f", "usersvc/etc/usersvc.yaml")
 
 	// 获取标准输出和标准错误
 	stdout, err := cmd.StdoutPipe()
@@ -168,10 +169,11 @@ func main() {
 	flag.Parse()
 
 	go startLogin()
-	go startLogin1()
+	// go startLogin1()
 	go startUser()
 
 	if *s != "rpc" {
+		time.Sleep(15 * time.Second)
 		startApi()
 	} else {
 		select {}

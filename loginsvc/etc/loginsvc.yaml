@@ -1,5 +1,5 @@
 Name: loginsvc.rpc
-ListenOn: 0.0.0.0:8080
+ListenOn: 0.0.0.0:8087
 #链路追踪
 Telemetry:
   Name: user-api

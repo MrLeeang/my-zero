@@ -19,8 +19,10 @@ LoginSvc:
     Hosts:
     - 192.168.2.235:2379
     Key: loginsvc.rpc
+  # NonBlock: true
 UserSvc:
   Etcd:
     Hosts:
     - 192.168.2.235:2379
     Key: usersvc.rpc
+  # NonBlock: true

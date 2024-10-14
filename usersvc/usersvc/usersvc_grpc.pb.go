@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Usersvc_Ping_FullMethodName = "/usersvc.Usersvc/Ping"
+	Usersvc_Ping_FullMethodName       = "/usersvc.Usersvc/Ping"
+	Usersvc_CreateUser_FullMethodName = "/usersvc.Usersvc/CreateUser"
 )
 
 // UsersvcClient is the client API for Usersvc service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersvcClient interface {
 	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
 }
 
 type usersvcClient struct {
@@ -47,11 +49,22 @@ func (c *usersvcClient) Ping(ctx context.Context, in *Request, opts ...grpc.Call
 	return out, nil
 }
 
+func (c *usersvcClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateUserResp)
+	err := c.cc.Invoke(ctx, Usersvc_CreateUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsersvcServer is the server API for Usersvc service.
 // All implementations must embed UnimplementedUsersvcServer
 // for forward compatibility.
 type UsersvcServer interface {
 	Ping(context.Context, *Request) (*Response, error)
+	CreateUser(context.Context, *CreateUserReq) (*CreateUserResp, error)
 	mustEmbedUnimplementedUsersvcServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedUsersvcServer struct{}
 
 func (UnimplementedUsersvcServer) Ping(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+}
+func (UnimplementedUsersvcServer) CreateUser(context.Context, *CreateUserReq) (*CreateUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
 func (UnimplementedUsersvcServer) mustEmbedUnimplementedUsersvcServer() {}
 func (UnimplementedUsersvcServer) testEmbeddedByValue()                 {}
@@ -104,6 +120,24 @@ func _Usersvc_Ping_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usersvc_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersvcServer).CreateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usersvc_CreateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersvcServer).CreateUser(ctx, req.(*CreateUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usersvc_ServiceDesc is the grpc.ServiceDesc for Usersvc service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var Usersvc_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Ping",
 			Handler:    _Usersvc_Ping_Handler,
+		},
+		{
+			MethodName: "CreateUser",
+			Handler:    _Usersvc_CreateUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

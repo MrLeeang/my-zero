@@ -13,7 +13,10 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/config.yaml", "the config file")
+var prefix = "/api"
+
+var configFile = flag.String("f", "api/etc/config.yaml", "the config file")
+var cert = flag.String("cert", "cert", "the cert dir")
 
 func StartServer() {
 	flag.Parse()
@@ -24,20 +27,24 @@ func StartServer() {
 	server := rest.MustNewServer(c.RestConf)
 	defer server.Stop()
 
-	ctx := svc.NewServiceContext(c)
-	login.RegisterHandlers(server, ctx)
+	ctx := svc.NewServiceContext(c, cert)
+
+	// 登录接口注册
+	login.RegisterHandlers(server, ctx, prefix)
 
 	// 路由注册
 	var routers = []rest.Route{}
 
-	routers = append(routers, user.RegisterHandlers(server, ctx)...)
+	routers = append(routers, user.RegisterHandlers(server, ctx, prefix)...)
 
-	// server.Use()
+	// 带权限的接口
 	server.AddRoutes(
 		routers,
-		rest.WithPrefix("/api"),
+		rest.WithPrefix(prefix),
 		rest.WithJwt(ctx.Config.JwtAuth.AccessSecret),
 	)
+	// 打印出所有路由
+	server.PrintRoutes()
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

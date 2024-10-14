@@ -17,8 +17,12 @@ type (
 	Request  = usersvc.Request
 	Response = usersvc.Response
 
+	CreateUserReq = usersvc.CreateUserReq
+	CreateUserResp = usersvc.CreateUserResp
+
 	Usersvc interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
 	}
 
 	defaultUsersvc struct {
@@ -35,4 +39,9 @@ func NewUsersvc(cli zrpc.Client) Usersvc {
 func (m *defaultUsersvc) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	client := usersvc.NewUsersvcClient(m.cli.Conn())
 	return client.Ping(ctx, in, opts...)
+}
+
+func (m *defaultUsersvc) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
+	client := usersvc.NewUsersvcClient(m.cli.Conn())
+	return client.CreateUser(ctx, in, opts...)
 }
