@@ -10,8 +10,8 @@ Telemetry:
   Sampler: 1.0
   Batcher: jaeger
 JwtAuth:
-  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  AccessExpire: 604800
+  AccessSecret: H2Z8a9SQ0hCpoyX1MJ520y1ti374wtDLECzMMFJI0w
+  AccessExpire: 86400  # 24小时,单位是秒
 DevServer:
     Enabled: true
 LoginSvc:

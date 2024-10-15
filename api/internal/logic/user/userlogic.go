@@ -40,7 +40,6 @@ func (l *UserLogic) Ping() (resp *types.Resp, err error) {
 func (l *UserLogic) CreateUser(req types.CreateUserReq) (resp *types.CreateUserResp, err error) {
 
 	l.Logger.Info(l.ctx.Value("uid"))
-	l.Logger.Info(l.ctx.Value("Authorization"))
 
 	in := usersvc.CreateUserReq{
 		Username: req.Username,
