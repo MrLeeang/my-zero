@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/MrLeeang/my-zero/database"
 	"github.com/MrLeeang/my-zero/loginsvc/internal/config"
 	"github.com/MrLeeang/my-zero/loginsvc/internal/server"
 	"github.com/MrLeeang/my-zero/loginsvc/internal/svc"
@@ -29,8 +28,6 @@ func StartServer() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	// 加载全局数据库
-	database.LoadDatabase(c.Mysql.Dsn)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 

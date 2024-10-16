@@ -10,3 +10,5 @@ Etcd:
   Hosts:
   - 192.168.2.235:2379
   Key: usersvc.rpc
+Mysql:
+  Dsn: "root:51elab_mysql@tcp(192.168.2.235:3306)/merge_v1?charset=utf8mb4&parseTime=True&loc=Local"
