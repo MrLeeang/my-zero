@@ -173,7 +173,7 @@ func main() {
 	go startUser()
 
 	if *s != "rpc" {
-		time.Sleep(15 * time.Second)
+		time.Sleep(5 * time.Second)
 		startApi()
 	} else {
 		select {}
