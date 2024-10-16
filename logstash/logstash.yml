@@ -1,0 +1,7 @@
+http.host: "0.0.0.0"
+#配置elasticsearch集群地址
+xpack.monitoring.elasticsearch.hosts: [ "http://localhost:9200" ]
+#允许监控
+xpack.monitoring.enabled: true
+#目录为挂载目录，启动命令指定的
+path.config: /usr/share/logstash/conf.d/*.conf

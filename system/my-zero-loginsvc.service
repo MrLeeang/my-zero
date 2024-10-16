@@ -1,0 +1,17 @@
+[Unit]
+Description=loginsvc
+Documentation=
+After=network.target
+
+[Service]
+WorkingDirectory=/home/my-zero
+ExecStart=/home/my-zero/loginsvc
+ExecStop=/bin/kill -KILL $MAINPID
+KillMode=control-group
+Restart=always
+RestartSec=3s
+StandardOutput=append:/var/log/my-zero/loginsvc.log
+StandardError=append:/var/log/my-zero/loginsvc.log
+
+[Install]
+WantedBy=default.target

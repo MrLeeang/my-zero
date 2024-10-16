@@ -1,0 +1,16 @@
+/var/log/my-zero/api.log
+/var/log/my-zero/loginsvc.log
+/var/log/my-zero/usersvc.log
+{
+	rotate 7
+	daily
+	missingok
+	notifempty
+	delaycompress
+	compress
+	postrotate
+		systemctl restart my-zero-loginsvc
+		systemctl restart my-zero-usersvc
+		systemctl restart my-zero-api
+	endscript
+}

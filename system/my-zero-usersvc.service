@@ -1,0 +1,17 @@
+[Unit]
+Description=usersvc
+Documentation=
+After=network.target
+
+[Service]
+WorkingDirectory=/home/my-zero
+ExecStart=/home/my-zero/usersvc
+ExecStop=/bin/kill -KILL $MAINPID
+KillMode=control-group
+Restart=always
+RestartSec=3s
+StandardOutput=append:/var/log/my-zero/usersvc.log
+StandardError=append:/var/log/my-zero/usersvc.log
+
+[Install]
+WantedBy=default.target

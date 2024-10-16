@@ -1,0 +1,17 @@
+[Unit]
+Description=api
+Documentation=
+After=network.target
+
+[Service]
+WorkingDirectory=/home/my-zero
+ExecStart=/home/my-zero/api
+ExecStop=/bin/kill -KILL $MAINPID
+KillMode=control-group
+Restart=always
+RestartSec=3s
+StandardOutput=append:/var/log/my-zero/api.log
+StandardError=append:/var/log/my-zero/api.log
+
+[Install]
+WantedBy=default.target
