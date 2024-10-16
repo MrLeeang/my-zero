@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "usersvc/etc/usersvc.yaml", "the config file")
+var configFile = flag.String("f", "etc/usersvc.yaml", "the config file")
 var cert = flag.String("cert", "cert", "the cert dir")
 
 func StartServer() {

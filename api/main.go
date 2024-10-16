@@ -15,7 +15,7 @@ import (
 
 var prefix = "/api"
 
-var configFile = flag.String("f", "api/etc/config.yaml", "the config file")
+var configFile = flag.String("f", "etc/api.yaml", "the config file")
 var cert = flag.String("cert", "cert", "the cert dir")
 
 func StartServer() {
