@@ -37,6 +37,7 @@ func (l *LoginLogic) Ping() (resp *types.Resp, err error) {
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 
+	resp = new(types.LoginResp)
 	var loginResp *loginsvc.LoginResp
 
 	if loginResp, err = l.svcCtx.LoginSvc.Login(l.ctx, &loginsvc.LoginReq{
@@ -45,10 +46,10 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		AccessSecret: l.svcCtx.Config.JwtAuth.AccessSecret,
 		AccessExpire: l.svcCtx.Config.JwtAuth.AccessExpire,
 	}); err != nil {
+		resp.Code, resp.Msg = types.RpcError, err.Error()
 		return
 	}
 
-	resp = new(types.LoginResp)
 	resp.Msg = types.ErrorCodeMessage[types.Ok]
 	resp.Data.Token = loginResp.Token
 	resp.Data.UserUuid = loginResp.UserUuid
